@@ -52,7 +52,4 @@ export class FileService {
       reader.readAsText(file);
     });
   }
-
-
-
 }
