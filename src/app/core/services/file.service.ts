@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { FileTypes } from 'src/app/core/models/file-types';
-import { MT940 } from 'src/app/core/models/mt940';
+import { FileTypes } from 'src/app/core/models/file-types.model';
+import { MT940 } from 'src/app/core/models/mt940.model';
 
 import { CSVService } from 'src/app/core/services/csv.service';
 import { XMLService } from 'src/app/core/services/xml.service';
@@ -43,7 +43,7 @@ export class FileService {
     }
   }
 
-  private async retrieveFileContent(file: File): Promise<ProgressEvent<FileReader>> {
+  private async retrieveFileContent(file: File): Promise<any> {
 
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
