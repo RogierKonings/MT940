@@ -13,7 +13,6 @@ export class FileUploadComponent {
   @Output() inputChange = new EventEmitter<File>();
 
   public inputChanged($event: any): void {
-    console.log($event);
     const file: File = $event.srcElement.files[0];
     this.inputChange.emit(file);
   }

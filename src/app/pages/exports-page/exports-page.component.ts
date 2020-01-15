@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { FileService } from 'src/app/core/services/file.service';
+import { MT940 } from 'src/app/models/mt940.model';
 
 @Component({
   selector: 'app-exports-page',
