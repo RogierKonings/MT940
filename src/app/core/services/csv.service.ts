@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { MT940, IMT940Creator } from 'src/app/models/mt940.model';
+import { MT940, MT940Creator } from 'src/app/models/mt940.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CSVService implements IMT940Creator {
+export class CSVService implements MT940Creator {
 
   public getMT940(data: string | ArrayBuffer): Array<MT940> {
     const records = (data as string).split(/\r\n|\n/);

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { MT940, IMT940Creator } from 'src/app/models/mt940.model';
+import { MT940, MT940Creator } from 'src/app/models/mt940.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class XMLService implements IMT940Creator {
+export class XMLService implements MT940Creator {
 
   public getMT940(data: string | ArrayBuffer): Array<MT940> {
     return null;
