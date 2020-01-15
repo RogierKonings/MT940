@@ -11,13 +11,12 @@ export class ValidationService {
 
   public validateMT940(values: Array<MT940>): boolean {
     const issueArr: Array<string> = [];
-    // revise
-    if (!this.referencesAreUnique(values)) {
-      issueArr.push('Transaction Reference not unique');
-    }
 
-    values.forEach((value: MT940, index: number) => {
+    values.forEach((value: MT940, index: number, arr: Array<MT940>) => {
       // create ErrorValidation Object
+      if (!this.isUniqueValue(value.TransactionReference, arr)) {
+        issueArr.push(`Transaction Reference is not an unique value at index: ${index}`);
+      }
       if (!this.isValidNumber(value.TransactionReference)) {
         issueArr.push(`Transaction Reference is not a valid number at index: ${index}`);
       }
@@ -48,13 +47,12 @@ export class ValidationService {
     console.log(issueArr);
   }
 
-  private referencesAreUnique(values: Array<MT940>): boolean {
+  private isUniqueValue(value: any, values: Array<MT940>): boolean {
     const referenceArr: Array<number> = [];
-    values.forEach((value: MT940) => {
-      referenceArr.push(value.TransactionReference);
+    values.forEach((mt940: MT940) => {
+      referenceArr.push(mt940.TransactionReference);
     });
-    const distinctReferenceArr = [...new Set(referenceArr)];
-    return referenceArr.length === distinctReferenceArr.length;
+    return referenceArr.filter(item => item === value).length === 1;
   }
 
   private isValidNumber(value: any): boolean {
