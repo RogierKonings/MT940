@@ -9,7 +9,7 @@ import { MT940 } from 'src/app/models/mt940.model';
 })
 export class ValidationService {
 
-  public validateMT940(values: Array<MT940>): boolean {
+  public validateMT940(values: Array<MT940>) {
     const issueArr: Array<string> = [];
 
     values.forEach((value: MT940, index: number, arr: Array<MT940>) => {
@@ -17,34 +17,32 @@ export class ValidationService {
       if (!this.isUniqueValue(value.TransactionReference, arr)) {
         issueArr.push(`Transaction Reference is not an unique value at index: ${index}`);
       }
-      if (!this.isValidNumber(value.TransactionReference)) {
+      if (isNaN(value.TransactionReference)) {
         issueArr.push(`Transaction Reference is not a valid number at index: ${index}`);
       }
-      if (!this.isValidIban(value.AccountNumber)) {
+      if (!IBAN.isValid(value.AccountNumber)) {
         issueArr.push(`Account Number is not a valid Iban at index: ${index}`);
       }
-      if (!this.isValidString(value.Description)) {
-        issueArr.push(`Description is not a valid string at index: ${index}`);
-      }
-      if (!this.isValidNumber(value.StartBalance)) {
+
+      if (isNaN(value.StartBalance)) {
         issueArr.push(`Start Balance is not a valid number at index: ${index}`);
       }
-      if (!this.isValidNumber(value.Mutation)) {
+      if (isNaN(value.Mutation)) {
         issueArr.push(`Mutation is not a valid number at index: ${index}`);
       }
-      if (!this.isValidNumber(value.EndBalance)) {
+      if (isNaN(value.EndBalance)) {
         issueArr.push(`End Balance is not a valid number at index: ${index}`);
       }
       if (
-        this.isValidNumber(value.StartBalance) &&
-        this.isValidNumber(value.Mutation) &&
-        this.isValidNumber(value.EndBalance) &&
+        !isNaN(value.StartBalance) &&
+        !isNaN(value.Mutation) &&
+        !isNaN(value.EndBalance) &&
         !this.isValidEndBalance(value.StartBalance, value.Mutation, value.EndBalance)
         ) {
         issueArr.push(`The calculation of the end balance is not valid at index ${index}`);
       }
     });
-    console.log(issueArr);
+
   }
 
   private isUniqueValue(value: any, values: Array<MT940>): boolean {
@@ -55,17 +53,13 @@ export class ValidationService {
     return referenceArr.filter(item => item === value).length === 1;
   }
 
-  private isValidNumber(value: any): boolean {
-    return this.isType(value, 'Number');
-  }
+  // private isValidNumber(value: any): boolean {
+  //   return this.isType(value, 'Number');
+  // }
 
-  private isValidString(value: any): boolean {
-    return this.isType(value, 'String');
-  }
-
-  private isValidIban(value: any): boolean {
-    return this.isValidString(value) && IBAN.isValid(value);
-  }
+  // private isValidIban(value: any): boolean {
+  //   return this.isValidString(value) && IBAN.isValid(value);
+  // }
 
   private isValidEndBalance(startBalance: number, mutation: number, endBalance: number): boolean {
     return (Math.round(startBalance * 100) + Math.round(mutation * 100)) / 100 === endBalance;
