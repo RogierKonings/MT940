@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 /**
- * Service responsible for outputting supported file types data
+ * Service responsible for outputting data from supported file types
  */
 import { FileTypes } from 'src/app/models/file-types.model';
 

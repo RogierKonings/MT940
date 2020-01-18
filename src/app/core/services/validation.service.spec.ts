@@ -3,7 +3,6 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { ValidationService } from 'src/app/core/services/validation.service';
 
-import { MT940 } from 'src/app/models/mt940.model';
 import { ValidationField, ValidationErrorMessages } from 'src/app/models/validation.model';
 
 import {

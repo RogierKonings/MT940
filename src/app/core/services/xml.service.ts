@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-
 /**
  * Service responsible for the mapping of a XML output to a list of MT940 Objects
  */
+import { Injectable } from '@angular/core';
+
 import * as XmlParser from 'xml2js';
 
 import { MT940, MT940Parser } from 'src/app/models/mt940.model';

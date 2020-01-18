@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { MT940 } from 'src/app/models/mt940.model';
 import { ValidationField } from 'src/app/models/validation.model';
 
 @Component({
