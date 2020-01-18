@@ -64,11 +64,7 @@ export class ValidationService {
   }
 
   private isUniqueValue(value: any, values: Array<MT940>): boolean {
-    const referenceArr: Array<number> = [];
-    values.forEach((mt940: MT940) => {
-      referenceArr.push(mt940.transactionReference);
-    });
-    return referenceArr.filter(item => item === value).length === 1;
+    return values.filter((mt940: MT940) => mt940.transactionReference === value).length === 1;
   }
 
   private isNumber(value: any): boolean {
