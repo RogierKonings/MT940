@@ -1,4 +1,4 @@
-# Mt940
+# MT940
 
 This project will generate a validation report of a MT940 file.
 Supported file formats are .csv and .xml
