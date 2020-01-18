@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/components/shared.module';
 
-import { ExportsPageComponent } from 'src/app/pages/exports-page/exports-page.component';
+import { ReportPageComponent } from 'src/app/pages/report-page/report-page.component';
 
 @NgModule({
   imports: [
     SharedModule,
     CommonModule
   ],
-  declarations: [ExportsPageComponent],
+  declarations: [ReportPageComponent],
   providers: [],
-  exports: [ExportsPageComponent]
+  exports: [ReportPageComponent]
 })
 export class PagesModule {}

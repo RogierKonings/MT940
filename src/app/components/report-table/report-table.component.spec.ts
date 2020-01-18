@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ExportsPageComponent } from 'src/app/pages/exports-page/exports-page.component';
+import { ReportTableComponent } from 'src/app/components/report-table/report-table.component';
 
-describe('PageWrapperComponent', () => {
-  let component: ExportsPageComponent;
-  let fixture: ComponentFixture<ExportsPageComponent>;
+describe('ReportTableComponent', () => {
+  let component: ReportTableComponent;
+  let fixture: ComponentFixture<ReportTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExportsPageComponent],
+      declarations: [ReportTableComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExportsPageComponent);
+    fixture = TestBed.createComponent(ReportTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

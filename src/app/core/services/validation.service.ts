@@ -1,73 +1,82 @@
+/**
+ * Service responsible for validating the different fields of a MT940
+ */
 import { Injectable } from '@angular/core';
 
 import * as IBAN from 'iban';
 
 import { MT940 } from 'src/app/models/mt940.model';
+import { ValidationField, ValidationErrorMessages } from 'src/app/models/validation.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidationService {
 
-  public validateMT940(values: Array<MT940>) {
-    const issueArr: Array<string> = [];
+  public validateMT940(values: Array<MT940>): Array<ValidationField> {
+    const validationReport: Array<ValidationField> = [];
 
-    values.forEach((value: MT940, index: number, arr: Array<MT940>) => {
-      // create ErrorValidation Object
-      if (!this.isUniqueValue(value.TransactionReference, arr)) {
-        issueArr.push(`Transaction Reference is not an unique value at index: ${index}`);
-      }
-      if (isNaN(value.TransactionReference)) {
-        issueArr.push(`Transaction Reference is not a valid number at index: ${index}`);
-      }
-      if (!IBAN.isValid(value.AccountNumber)) {
-        issueArr.push(`Account Number is not a valid Iban at index: ${index}`);
-      }
+    values.forEach((mt940: MT940, index: number, arr: Array<MT940>) => {
+      const validationField: ValidationField = {
+        transactionReference: mt940.transactionReference,
+        errors: []
+      };
 
-      if (isNaN(value.StartBalance)) {
-        issueArr.push(`Start Balance is not a valid number at index: ${index}`);
+      if (!this.isUniqueValue(mt940.transactionReference, arr)) {
+        validationField.errors.push({
+          message: ValidationErrorMessages.TransactionReferenceNotUnique
+        });
       }
-      if (isNaN(value.Mutation)) {
-        issueArr.push(`Mutation is not a valid number at index: ${index}`);
+      if (!this.isNumber(mt940.transactionReference)) {
+        validationField.errors.push({
+          message: ValidationErrorMessages.TransactionReferenceNotValidNumber
+        });
       }
-      if (isNaN(value.EndBalance)) {
-        issueArr.push(`End Balance is not a valid number at index: ${index}`);
+      if (!IBAN.isValid(mt940.accountNumber)) {
+        validationField.errors.push({
+          message: ValidationErrorMessages.TransactionReferenceNotUnique
+        });
+      }
+      if (!this.isNumber(mt940.startBalance)) {
+        validationField.errors.push({
+          message: ValidationErrorMessages.StartBalanceNotValidNumber
+        });
+      }
+      if (!this.isNumber(mt940.mutation)) {
+        validationField.errors.push({
+          message: ValidationErrorMessages.MutationNotValidNumber
+        });
+      }
+      if (!this.isNumber(mt940.endBalance)) {
+        validationField.errors.push({
+          message: ValidationErrorMessages.EndBalanceNotValidNumber
+        });
       }
       if (
-        !isNaN(value.StartBalance) &&
-        !isNaN(value.Mutation) &&
-        !isNaN(value.EndBalance) &&
-        !this.isValidEndBalance(value.StartBalance, value.Mutation, value.EndBalance)
-        ) {
-        issueArr.push(`The calculation of the end balance is not valid at index ${index}`);
+        !this.isValidEndBalance(mt940.startBalance, mt940.mutation, mt940.endBalance)) {
+          validationField.errors.push({
+            message: ValidationErrorMessages.EndBalanceNotValidCalculation
+          });
       }
+      validationReport.push(validationField);
     });
-
+    return validationReport;
   }
 
   private isUniqueValue(value: any, values: Array<MT940>): boolean {
     const referenceArr: Array<number> = [];
     values.forEach((mt940: MT940) => {
-      referenceArr.push(mt940.TransactionReference);
+      referenceArr.push(mt940.transactionReference);
     });
     return referenceArr.filter(item => item === value).length === 1;
   }
 
-  // private isValidNumber(value: any): boolean {
-  //   return this.isType(value, 'Number');
-  // }
-
-  // private isValidIban(value: any): boolean {
-  //   return this.isValidString(value) && IBAN.isValid(value);
-  // }
+  private isNumber(value: any): boolean {
+    return typeof(value) === 'number' && !isNaN(value);
+  }
 
   private isValidEndBalance(startBalance: number, mutation: number, endBalance: number): boolean {
     return (Math.round(startBalance * 100) + Math.round(mutation * 100)) / 100 === endBalance;
   }
-
-  private isType(value: any, type: string): boolean {
-    return Object.prototype.toString.call(value) === `[object ${type}]`;
-  }
-
 
 }

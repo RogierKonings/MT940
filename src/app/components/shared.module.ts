@@ -5,6 +5,7 @@ import { PageWrapperComponent } from 'src/app/components/layout/page-wrapper/pag
 import { HeaderComponent } from 'src/app/components/layout/header/header.component';
 import { FooterComponent } from 'src/app/components/layout/footer/footer.component';
 import { FileUploadComponent } from 'src/app/components/file-upload/file-upload.component';
+import { ReportTableComponent } from 'src/app/components/report-table/report-table.component';
 
 @NgModule({
   imports: [
@@ -14,14 +15,16 @@ import { FileUploadComponent } from 'src/app/components/file-upload/file-upload.
     PageWrapperComponent,
     HeaderComponent,
     FooterComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ReportTableComponent
   ],
   providers: [],
   exports: [
     PageWrapperComponent,
     HeaderComponent,
     FooterComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ReportTableComponent
   ]
 })
 export class SharedModule {}

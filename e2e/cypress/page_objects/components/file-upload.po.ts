@@ -1,3 +1,3 @@
-export class FileUploadPo {
-  self = 'app-file-upload';
-}
+// export class FileUploadPo {
+//   self = 'app-file-upload';
+// }

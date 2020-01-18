@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "..",
     "paths": {
       "*": ["types/*"]
     },
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "noImplicitAny": false,
     "module": "es6",
     "target": "es5",
@@ -13,5 +13,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "types": ["cypress", "node"]
-  }
+  },
+  "include": [
+    "../node_modules/cypress",
+    "*/*.ts"
+  ]
 }
