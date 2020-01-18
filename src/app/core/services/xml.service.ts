@@ -19,6 +19,8 @@ export class XMLService implements MT940Parser {
     }, (error, result) => {
       if (result && result.records && result.records.record) {
         mt940arr = this.parseToList(result.records.record);
+      } else {
+        throw new Error('Unable to parse the text/xml type');
       }
     });
     return mt940arr;

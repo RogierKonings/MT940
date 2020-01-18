@@ -16,13 +16,13 @@ export class ValidationService {
   public validateMT940(values: Array<MT940>): Array<ValidationField> {
     const validationReport: Array<ValidationField> = [];
 
-    values.forEach((mt940: MT940, index: number, arr: Array<MT940>) => {
+    values.forEach((mt940: MT940) => {
       const validationField: ValidationField = {
         transactionReference: mt940.transactionReference,
         errors: []
       };
 
-      if (!this.isUniqueValue(mt940.transactionReference, arr)) {
+      if (!this.isUniqueValue(mt940.transactionReference, values)) {
         validationField.errors.push({
           message: ValidationErrorMessages.TransactionReferenceNotUnique
         });

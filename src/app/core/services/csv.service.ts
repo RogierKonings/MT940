@@ -25,7 +25,10 @@ export class CSVService implements MT940Parser {
         mt940arr.push(mt940);
       }
     }
-    return mt940arr;
+    if (mt940arr.length > 0) {
+      return mt940arr;
+    }
+    throw new Error('Unable to parse the text/csv type')
   }
 
   mapToMT940(record: Array<string>): MT940 {

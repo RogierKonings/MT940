@@ -33,9 +33,10 @@ describe('CSVService', () => {
       expect(result).toEqual(response);
     }));
 
-    it('should return empty array in case of invalid CSV format', inject([CSVService], (service: CSVService) => {
-      const result: Array<MT940> = service.getMT940(InvalidMT940CSVStub);
-      expect(result).toEqual([]);
+    it('should throw an error in case of invalid CSV format', inject([CSVService], (service: CSVService) => {
+      expect(() => {
+        service.getMT940(InvalidMT940CSVStub);
+      }).toThrowError();
     }));
   });
 });
