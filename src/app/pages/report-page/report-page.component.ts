@@ -12,12 +12,18 @@ import { ValidationField } from 'src/app/models/validation.model';
 export class ReportPageComponent {
 
   public MT940report: Array<ValidationField>;
+  public modelError: boolean;
 
   constructor(
     private reportService: ReportService
   ) {}
 
   public async openFile(file: File) {
-    this.MT940report = await this.reportService.createReport(file);
+    try {
+      this.modelError = false;
+      this.MT940report = await this.reportService.createReport(file);
+    } catch (error) {
+      this.modelError = true;
+    }
   }
 }
